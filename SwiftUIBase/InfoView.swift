@@ -8,20 +8,23 @@
 import SwiftUI
 
 struct InfoView: View {
+    let showTitle: Bool
+    let rowHeight: Double
+    
     var body: some View {
         NavigationView {
             List(samplePosts) { post in
                 NavigationLink {
                     InfoDetails(post: post)
                 } label: {
-                    InfoRow(post: post)
+                    InfoRow(post: post, height: rowHeight)
                 }
             }
-            .navigationTitle("База знаний")
+            .navigationTitle(showTitle ? "База знаний" : "")
         }
     }
 }
 
 #Preview {
-    InfoView()
+    InfoView(showTitle: true, rowHeight: 80)
 }

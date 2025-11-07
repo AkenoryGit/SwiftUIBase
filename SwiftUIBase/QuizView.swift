@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Charts
 
 struct QuizView: View {
     @EnvironmentObject var postStorage: PostStorage  // Хранилище постов
@@ -143,7 +144,7 @@ struct QuizView: View {
     
     // MARK: - Экран результата
     private var resultView: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 30) {
             Text("Викторина завершена!")
                 .font(.largeTitle)
                 .fontWeight(.bold)
@@ -151,13 +152,30 @@ struct QuizView: View {
             Text("Твой результат: \(score)/3")
                 .font(.title)
             
+            // ГРАФИК
+            Chart {
+                BarMark(
+                    x: .value("Тип", "Правильные"),
+                    y: .value("Количество", score)
+                )
+                .foregroundStyle(.green)
+                
+                BarMark(
+                    x: .value("Тип", "Неправильные"),
+                    y: .value("Количество", 3 - score)
+                )
+                .foregroundStyle(.red)
+            }
+            .frame(height: 200)
+            .padding()
+            
             Button("Начать заново") {
                 currentQuestion = 0
                 score = 0
                 showResult = false
             }
             .padding()
-            .background(Color.green)
+            .background(Color.blue)
             .foregroundColor(.white)
             .cornerRadius(10)
         }

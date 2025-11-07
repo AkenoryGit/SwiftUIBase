@@ -18,9 +18,9 @@ struct ContentView: View {
                     Label("Знания", systemImage: "book")
                 }
             
-            HelloView()
+            QuizView()
                 .tabItem {
-                    Label("Hello", systemImage: "hand.wave")
+                    Label("Quiz", systemImage: "questionmark.circle.fill")
                 }
             
             SettingsView()

@@ -12,6 +12,7 @@ struct SettingsView: View {
     @AppStorage("rowHeight") private var rowHeight: Double = 80
     @AppStorage("selectedTheme") private var selectedTheme = 2
     
+    @State private var isEditing = false
     @State private var isNotificationsEnabled = true
     @State private var volumeLevel: Double = 0.7
     
@@ -51,15 +52,19 @@ struct SettingsView: View {
                 Section("Высота строки") {
                     HStack {
                         Text("Высота")
-                        Slider(value: $rowHeight, in: 60...120, step: 5)
+                        Slider(value: $rowHeight, in: 60...120, step: 5) { edited in
+                            isEditing = edited
+                        }
                             .accentColor(.blue)
                         Text("\(Int(rowHeight))")
                     }
                     
-                    Text("Превью строки:")
-                        .font(.headline)
-                    
-                    InfoRowPreview(height: rowHeight)
+                    if isEditing {
+                        Text("Превью строки:")
+                            .font(.headline)
+                        
+                        InfoRowPreview(height: rowHeight)
+                    }
                 }
                 
                 Section {

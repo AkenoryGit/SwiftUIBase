@@ -13,5 +13,3 @@ struct Post: Identifiable {
     let description: String
     let image: Image
 }
-
-

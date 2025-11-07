@@ -8,14 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("showTitle") private var showTitle = true
+    @AppStorage("rowHeight") private var rowHeight: Double = 80
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            InfoView(showTitle: showTitle, rowHeight: rowHeight)
+                .tabItem {
+                    Label("Знания", systemImage: "book")
+                }
+            
+            QuizView()
+                .tabItem {
+                    Label("Quiz", systemImage: "questionmark.circle.fill")
+                }
+            
+            SettingsView()
+                .tabItem {
+                    Label("Настройки", systemImage: "gear")
+                }
         }
-        .padding()
+        .accentColor(.blue)
     }
 }
 
